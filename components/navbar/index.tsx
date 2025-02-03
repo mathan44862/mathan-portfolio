@@ -1,9 +1,9 @@
 import Settings from "../settings";
 import { Menus } from "./sidebar";
 
-export default function Sidebar() {
+export default function Navbar() {
   return (
-    <div className="min-w-full p-8 flex justify-between items-center bg-black">
+    <div className="min-w-full p-8 flex justify-between items-center bg-black fixed top-0">
       <div className="flex gap-2">
         {Menus.map((menu, key) => (
           <div
