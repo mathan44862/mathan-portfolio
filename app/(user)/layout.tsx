@@ -1,29 +1,38 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "../globals.css";
-import Navbar from "@/components/navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Mathan's Portfolio",
+  title: "Mathan M — Full Stack Developer",
   description:
-    "This is the portfolio of Mathan M, showcasing my work in front-end and back-end development. From stunning React applications to reliable Java solutions, I bring your ideas to life with code.",
+    "Mathan M is a Full Stack Developer with 2+ years of experience building React, Next.js, TypeScript and FastAPI applications for US-based clients.",
+  openGraph: {
+    title: "Mathan M — Full Stack Developer",
+    description: "React · Next.js · TypeScript · FastAPI · PostgreSQL. Working with US clients.",
+    images: ["/mathan.png"],
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="flex flex-col">
-          {/* <Navbar /> */}
-          {children}
-        </div>
-      </body>
+    <html
+      lang="en"
+      className={`${inter.variable} ${display.variable} ${mono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Hide the intro before first paint on repeat visits / reduced motion (no flash). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("mathan-intro-seen")==="1"||matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.dataset.introSeen="1"}catch(e){}`,
+          }}
+        />
+      </head>
+      <body className="bg-[#0a0a0f] font-sans antialiased">{children}</body>
     </html>
   );
 }
